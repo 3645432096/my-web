@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>拾墨 じゅうぼく / jyuuboku — UTAU 虚拟歌姬官方网站</title>
+<meta name="description" content="UTAU 虚拟歌姬拾墨（じゅうぼく / jyuuboku）官方网站：声库下载、使用规约、模型与其他资源、官方账号、更新公告与联系方式。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%235E6F56'/%3E%3Cpath d='M16 44c10-4 12-18 24-24' stroke='%23FAFAF8' stroke-width='4' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --bg:#FAFAF7;
+  --bg-soft:#F2F2ED;
+  --ink:#1A1D1A;
+  --ink-2:#4C514B;
+  --muted:#8C918A;
+  --line:#E3E3DB;
+  --line-2:#D2D3C9;
+  --accent:#5E6F56;
+  --accent-deep:#3C4A36;
+  --warn:#8A6135;
+  --stop:#A6392C;
+  --sb:264px;
+  --serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong",serif;
+  --sans:"Noto Sans SC","Source Han Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:32px}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:rgba(94,111,86,.2)}
+
+/* ===== 侧边栏 ===== */
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;width:var(--sb);z-index:20;
+  display:flex;flex-direction:column;padding:44px 34px 30px;
+  background:var(--bg);border-right:1px solid var(--line);overflow-y:auto;
+}
+.brand{padding-bottom:26px}
+.brand-mark{display:flex;align-items:center;gap:10px}
+.brand-dot{width:7px;height:7px;background:var(--accent);flex:none}
+.brand h1{font-family:var(--serif);font-weight:500;font-size:26px;letter-spacing:.16em;line-height:1.2;margin:0}
+.brand .sub{font-size:11px;letter-spacing:.2em;color:var(--muted);margin-top:9px}
+
+.nav{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.nav li{border-bottom:1px solid var(--line)}
+.nav-link{
+  position:relative;display:flex;align-items:baseline;gap:10px;
+  padding:11px 0 11px 14px;text-decoration:none;
+  font-size:14px;color:var(--muted);letter-spacing:.02em;
+  transition:color .18s ease,padding-left .18s ease;
+}
+.nav-no{font-family:var(--serif);font-size:11px;color:var(--line-2);font-variant-numeric:tabular-nums;transition:color .18s}
+.nav-link:hover{color:var(--ink)}
+.nav-link:hover .nav-no{color:var(--accent)}
+.nav-link.is-active{color:var(--ink)}
+.nav-link.is-active .nav-no{color:var(--accent)}
+.nav-link.is-active::before{
+  content:"";position:absolute;left:0;top:14px;bottom:14px;width:2px;background:var(--accent);
+}
+.nav-link:focus-visible{outline:1px solid var(--accent);outline-offset:2px}
+
+.side-foot{margin-top:auto;padding-top:24px;font-size:11.5px;color:var(--muted);line-height:1.9}
+.to-top{
+  display:inline-block;margin-bottom:14px;padding:0;cursor:pointer;background:none;border:0;
+  font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;color:var(--ink-2);
+  border-bottom:1px solid var(--line-2);padding-bottom:2px;
+}
+.to-top:hover{color:var(--accent);border-color:var(--accent)}
+.to-top:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+
+/* ===== 主区 ===== */
+.main{margin-left:var(--sb)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 64px}
+
+/* 首屏 */
+.hero{padding:104px 0 66px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:12.5px;letter-spacing:.14em;color:var(--muted);margin:0 0 26px}
+.title-row{display:flex;align-items:flex-end;gap:26px;flex-wrap:wrap}
+.hero-title{
+  font-family:var(--serif);font-weight:500;font-size:clamp(72px,7.4vw,112px);
+  line-height:1;letter-spacing:.04em;margin:0;color:var(--ink);
+}
+.hero-reading{font-family:var(--serif);padding-bottom:6px;line-height:1.5}
+.hero-reading b{display:block;font-weight:400;font-size:17px;color:var(--ink-2);letter-spacing:.06em}
+.hero-reading span{display:block;font-size:12px;color:var(--muted);letter-spacing:.16em}
+.hero-lead{margin:34px 0 0;max-width:590px;font-size:16px;line-height:2;color:var(--ink-2)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px 40px;margin:38px 0 0}
+.hero-meta div{display:flex;align-items:baseline;gap:9px}
+.hero-meta dt{font-size:11.5px;letter-spacing:.16em;color:var(--muted)}
+.hero-meta dd{margin:0;font-size:14.5px;color:var(--ink-2);display:flex;align-items:center;gap:7px}
+.swatch{display:inline-block;width:10px;height:10px;background:#5E6F56}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer;
+  font-family:var(--sans);font-size:13px;letter-spacing:.06em;
+  padding:10px 18px;border:1px solid transparent;border-radius:0;
+  transition:background-color .16s,color .16s,border-color .16s;
+}
+.btn-solid{background:var(--accent-deep);color:#F7F7F2}
+.btn-solid:hover{background:#2E3A29}
+.btn-line{background:transparent;color:var(--ink-2);border-color:var(--line-2)}
+.btn-line:hover{border-color:var(--accent);color:var(--accent-deep)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn svg{width:12px;height:12px;flex:none}
+
+/* 章节 */
+.sec{padding:76px 0 0}
+.sec[id]{scroll-margin-top:28px}
+.sec-head{display:flex;align-items:baseline;gap:14px;padding-bottom:16px;border-bottom:1px solid var(--line-2);margin-bottom:34px}
+.sec-no{font-family:var(--serif);font-size:11.5px;color:var(--accent);letter-spacing:.14em;flex:none;min-width:14px}
+.sec-head h2{font-family:var(--serif);font-weight:500;font-size:23px;line-height:1.5;margin:0;letter-spacing:.05em}
+.sec-head .en{font-size:11.5px;color:var(--muted);letter-spacing:.12em;margin-left:auto}
+h3.sub{font-family:var(--serif);font-weight:500;font-size:16.5px;margin:40px 0 14px;letter-spacing:.04em}
+p{margin:0 0 14px;color:var(--ink-2)}
+.lead{font-size:16px;line-height:1.95}
+.muted{color:var(--muted);font-size:13.5px;line-height:1.85}
+
+/* 提示 */
+.note{
+  padding:14px 18px;margin:0 0 28px;background:var(--bg-soft);
+  border-left:2px solid var(--warn);font-size:14px;line-height:1.85;color:var(--ink-2);
+}
+.note b{font-weight:500;color:var(--warn);margin-right:8px;letter-spacing:.1em}
+.key{
+  padding:14px 18px;margin:20px 0 18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  font-size:14.5px;line-height:1.9;color:var(--ink-2);
+}
+.key strong{font-weight:500;color:var(--stop)}
+
+/* 双栏 */
+.split{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:56px;align-items:start}
+.rows{border-top:1px solid var(--line)}
+.row{display:flex;justify-content:space-between;gap:18px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.row .k{color:var(--muted);flex:none}
+.row .v{color:var(--ink);text-align:right;font-family:var(--serif)}
+.cap{font-size:12px;letter-spacing:.14em;color:var(--muted);margin:0 0 12px}
+
+/* 设定表 */
+.def-table{width:100%;border-top:1px solid var(--line-2);table-layout:fixed}
+.def-table colgroup col:first-child{width:120px}
+.def-table tr{border-bottom:1px solid var(--line)}
+.def-table td{padding:12px 0;vertical-align:top;font-size:14.5px;line-height:1.85}
+.def-table td.k{color:var(--muted);font-size:13px;letter-spacing:.1em;white-space:nowrap}
+.def-table td.v{color:var(--ink);padding-left:14px}
+
+.def-quote{margin:30px 0 0;padding:0 0 0 16px;border-left:2px solid var(--accent)}
+.def-quote p{font-family:var(--serif);font-size:15px;line-height:2.05;letter-spacing:.04em;color:var(--ink-2);margin:0}
+.def-quote .src{font-family:var(--sans);font-size:11.5px;color:var(--muted);letter-spacing:.14em;margin-top:8px}
+
+/* 下载 */
+.dl{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line-2)}
+.dl>div{padding:26px 34px 0 0}
+.dl>div+div{padding:26px 0 0 34px;border-left:1px solid var(--line)}
+.dl h4{font-family:var(--serif);font-weight:500;font-size:17px;margin:0;letter-spacing:.03em;line-height:1.6}
+.dl-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+.tag{font-size:11.5px;letter-spacing:.1em;color:var(--muted);flex:none}
+.tag.on{color:var(--accent)}
+.tag.wip{color:var(--warn)}
+.dl p{font-size:14px;line-height:1.9;margin:0 0 14px}
+.link-row{
+  display:flex;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--line);
+  font-size:12px;color:var(--muted);word-break:break-all;line-height:1.6;
+}
+.link-row svg{flex:none;opacity:.55}
+.dl-act{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+
+/* 规约 */
+.tip{font-size:13.5px;color:var(--ink-2);padding-bottom:20px;border-bottom:1px solid var(--line);margin:0 0 6px}
+.tip b{font-weight:500;color:var(--accent);letter-spacing:.1em;margin-right:8px}
+.rule{margin-top:34px}
+.rule-head{display:flex;align-items:baseline;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line-2)}
+.rule-head h4{font-family:var(--serif);font-weight:500;font-size:16px;margin:0;letter-spacing:.03em;line-height:1.6}
+.rule-head .cnt{font-size:11.5px;color:var(--muted);margin-left:auto;flex:none;letter-spacing:.08em}
+.rule ul{list-style:none;margin:0;padding:0}
+.rule li{display:grid;grid-template-columns:16px 1fr;gap:8px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.85;color:var(--ink-2)}
+.rule li:last-child{border-bottom:0}
+.mk{width:5px;height:5px;background:var(--accent);display:inline-block;position:relative;top:-2px}
+.rule.ask .mk{background:var(--warn)}
+.rule.deny .mk{background:var(--stop)}
+.rule.deny .rule-head h4{color:var(--stop)}
+.rule.ask .rule-head h4{color:#6F5227}
+.rights p{font-size:14.5px;line-height:1.95;margin:0 0 12px}
+.premise{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:6px}
+.premise li{display:grid;grid-template-columns:20px 1fr;gap:6px;font-size:14px;color:var(--ink-2);line-height:1.85}
+.premise .pn{font-family:var(--serif);color:var(--accent)}
+
+/* 模型 */
+.block{border-top:1px solid var(--line-2);padding-top:22px}
+.block .head{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+.block h4{font-family:var(--serif);font-weight:500;font-size:17px;margin:0;letter-spacing:.03em}
+.block p{font-size:14px;line-height:1.9;margin:0 0 14px;max-width:560px}
+
+/* 空态 */
+.empty{padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:16px}
+.empty .num{font-family:var(--serif);font-size:13px;color:var(--muted);letter-spacing:.1em;flex:none}
+.empty p{margin:0;font-size:14px;color:var(--muted);line-height:1.85}
+
+/* 公告 */
+.ann{display:grid;grid-template-columns:130px 1fr;gap:26px;align-items:baseline;padding:20px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line)}
+.ann-no{font-family:var(--serif);font-size:13px;color:var(--muted);letter-spacing:.08em}
+.ann-no b{display:block;font-size:15px;font-weight:500;color:var(--ink);margin-top:2px;letter-spacing:.04em}
+.ann p{margin:0;font-size:15px;line-height:1.95}
+
+/* 赠图 */
+.frame-note{padding:26px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line);font-size:14px;line-height:1.9;color:var(--muted)}
+
+/* 账号 */
+.acct{display:flex;align-items:center;justify-content:space-between;gap:26px;padding:22px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.acct .plat{font-family:var(--serif);font-size:16px;letter-spacing:.03em;margin:0 0 4px}
+.acct .handle{font-size:14px;color:var(--ink-2);margin:0 0 6px}
+.acct .url{font-size:12px;color:var(--muted);word-break:break-all;line-height:1.6;margin:0;max-width:640px}
+
+/* 联系方式 */
+.contact{list-style:none;margin:6px 0 0;padding:0;border-top:1px solid var(--line-2)}
+.contact li{display:grid;grid-template-columns:130px minmax(0,1fr) auto;gap:16px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.contact .k{font-size:13px;letter-spacing:.08em;color:var(--muted)}
+.contact .v{font-family:var(--serif);font-size:15.5px;color:var(--ink);word-break:break-all}
+.copy{
+  display:inline-flex;align-items:center;gap:6px;flex:none;cursor:pointer;
+  background:none;border:1px solid var(--line-2);padding:5px 10px;
+  font-family:var(--sans);font-size:11.5px;letter-spacing:.08em;color:var(--ink-2);
+  transition:border-color .16s,color .16s;
+}
+.copy:hover{border-color:var(--accent);color:var(--accent-deep)}
+.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.copy svg{width:11px;height:11px}
+.side-note{border-top:1px solid var(--line-2);padding-top:16px}
+.side-note p{font-size:13.5px;line-height:1.9;margin:0 0 12px}
+
+/* Q&A */
+.qa{border-top:1px solid var(--line-2);margin-top:8px}
+.qa-item{padding:24px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:34px minmax(0,1fr);gap:16px}
+.qm{font-family:var(--serif);font-size:13px;color:var(--muted);letter-spacing:.06em;padding-top:2px}
+.qa-q{font-family:var(--serif);font-size:16px;font-weight:500;line-height:1.75;margin:0 0 10px;letter-spacing:.02em;color:var(--ink)}
+.qa-a{font-size:14.5px;line-height:1.95;margin:0;color:var(--ink-2)}
+
+/* 页脚 */
+.foot{margin-top:84px;padding:22px 0 64px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:baseline}
+.foot .l{font-family:var(--serif);font-size:13.5px;letter-spacing:.14em;color:var(--ink-2)}
+.foot .r{font-size:11.5px;color:var(--muted);letter-spacing:.04em;line-height:1.9}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translate(-50%,8px);z-index:40;
+  background:var(--accent-deep);color:#F7F7F2;font-size:12.5px;letter-spacing:.06em;
+  padding:9px 16px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ===== 响应式 ===== */
+@media (max-width:1400px){ .wrap{padding:0 48px} }
+@media (max-width:1150px){
+  .split{grid-template-columns:minmax(0,1fr);gap:32px}
+  .dl{grid-template-columns:1fr}
+  .dl>div,.dl>div+div{padding:24px 0 0;border-left:0}
+  .dl>div+div{border-top:1px solid var(--line);margin-top:6px}
+}
+@media (max-width:1080px){
+  .sidebar{
+    position:sticky;width:100%;max-height:none;padding:14px 24px;
+    flex-direction:row;align-items:center;gap:18px;overflow:visible;
+  }
+  .brand{padding:0;flex:none}
+  .brand h1{font-size:17px;letter-spacing:.1em}
+  .brand .sub{display:none}
+  .nav{display:flex;gap:4px;overflow-x:auto;flex:1;border-top:0;border-bottom:0;scrollbar-width:none}
+  .nav::-webkit-scrollbar{display:none}
+  .nav li{border-bottom:0}
+  .nav-link{padding:6px 10px;white-space:nowrap;font-size:13px}
+  .nav-link.is-active{background:var(--bg-soft)}
+  .nav-link.is-active::before{display:none}
+  .nav-no{display:none}
+  .side-foot{display:none}
+  .main{margin-left:0}
+  .sec{scroll-margin-top:64px}
+  html{scroll-padding-top:72px}
+  .hero{padding:56px 0 44px}
+  .acct{gap:14px}
+}
+@media (max-width:720px){
+  .wrap{padding:0 24px}
+  .hero-title{font-size:60px}
+  .hero-meta{gap:8px 24px}
+  .ann{grid-template-columns:minmax(0,1fr);gap:6px}
+  .qa-item{grid-template-columns:minmax(0,1fr);gap:6px}
+  .contact{grid-template-columns:1fr}
+  .contact li{grid-template-columns:minmax(0,1fr);gap:6px}
+  .copy{justify-self:start}
+  .sec-head h2{font-size:20px}
+  .sec-head .en{display:none}
+  .hero-cta .btn{flex:1;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 侧边栏 ===== -->
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-mark">
+      <span class="brand-dot" aria-hidden="true"></span>
+      <h1>拾墨</h1>
+    </div>
+    <div class="sub">JYUUBOKU / じゅうぼく</div>
+  </div>
+
+  <ul class="nav" id="nav">
+    <li><a class="nav-link" href="#about-site" data-target="about-site"><span class="nav-no">一</span><span>关于本网站</span></a></li>
+    <li><a class="nav-link" href="#about-jyuuboku" data-target="about-jyuuboku"><span class="nav-no">二</span><span>关于拾墨</span></a></li>
+    <li><a class="nav-link" href="#voicebank" data-target="voicebank"><span class="nav-no">三</span><span>声库下载和使用规约</span></a></li>
+    <li><a class="nav-link" href="#model" data-target="model"><span class="nav-no">四</span><span>模型下载</span></a></li>
+    <li><a class="nav-link" href="#resources" data-target="resources"><span class="nav-no">五</span><span>其他资源下载</span></a></li>
+    <li><a class="nav-link" href="#social" data-target="social"><span class="nav-no">六</span><span>官方账号</span></a></li>
+    <li><a class="nav-link" href="#news" data-target="news"><span class="nav-no">七</span><span>网站更新和公告</span></a></li>
+    <li><a class="nav-link" href="#gallery" data-target="gallery"><span class="nav-no">八</span><span>粉丝赠图和约稿</span></a></li>
+    <li><a class="nav-link" href="#admin" data-target="admin"><span class="nav-no">九</span><span>关于管理员</span></a></li>
+    <li><a class="nav-link" href="#misc" data-target="misc"><span class="nav-no">十</span><span>其他</span></a></li>
+  </ul>
+
+  <div class="side-foot">
+    <button class="to-top" type="button" id="toTop">回顶部</button>
+    <div>UTAU 虚拟歌姬 · 白泽<br>管理者 某陌 MmiTochOndrion</div>
+  </div>
+</aside>
+
+<!-- ===== 主区 ===== -->
+<main class="main">
+
+  <!-- 首屏 -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">UTAU 虚拟歌姬 · 单独音已配布</p>
+      <div class="title-row">
+        <h2 class="hero-title">拾墨</h2>
+        <div class="hero-reading">
+          <b>じゅうぼく</b>
+          <span>jyuuboku</span>
+        </div>
+      </div>
+      <p class="hero-lead">以「白泽」为原型的 UTAU 歌姬。这里收着她已经配布的声库、模型与相关资源，以及全部的使用规约。取用之前，请先读完规约。</p>
+      <dl class="hero-meta">
+        <div><dt>生日</dt><dd>11 月 26 日</dd></div>
+        <div><dt>身高</dt><dd>159 cm</dd></div>
+        <div><dt>代表色</dt><dd><span class="swatch" aria-hidden="true"></span>#5E6F56</dd></div>
+        <div><dt>声源</dt><dd>某陌</dd></div>
+      </dl>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#voicebank">前往声库</a>
+        <a class="btn btn-line" href="#about-jyuuboku">了解角色</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <!-- 一 · 关于本网站 -->
+    <section class="sec" id="about-site" data-sec>
+      <div class="sec-head"><span class="sec-no">一</span><h2>关于本网站</h2><span class="en">About this site</span></div>
+
+      <div class="note"><b>注</b>由于本网站以及部分资源还在施工中，站内内容随时修改，部分声库或模型等可能无法获取，请见谅！</div>
+
+      <div class="split">
+        <div>
+          <p class="lead">本网站是 UTAU 虚拟歌姬拾墨（じゅうぼく / jyuuboku）的官方网站，管理者为某陌（MmiTochOndrion）。你可以在此网站获取到拾墨相关的、已经配布的声库等资源。</p>
+
+          <div class="key">请注意：本网站中的声库等内容<strong>禁止二配和二转</strong>（包括发给朋友）。如果你的朋友等人需要本网站上的声库等，请把本网站的网址发给 TA，让 TA 自行下载。</div>
+
+          <p>管理员并没有特别专业，如有错误欢迎联系管理员捉虫，联系方式请看「关于管理员」一栏。</p>
+          <p class="muted">代码使用了豆包 ai 辅助，介意请自行避雷。</p>
+        </div>
+
+        <div>
+          <p class="cap">站内制作</p>
+          <div class="rows">
+            <div class="row"><span class="k">UTAU 单独音原音设定</span><span class="v">天降甘霖</span></div>
+            <div class="row"><span class="k">公式立绘</span><span class="v">水冗</span></div>
+            <div class="row"><span class="k">声源 / 角色设计</span><span class="v">某陌</span></div>
+            <div class="row"><span class="k">音源示例 ust 等</span><span class="v">见上列署名</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 二 · 关于拾墨 -->
+    <section class="sec" id="about-jyuuboku" data-sec>
+      <div class="sec-head"><span class="sec-no">二</span><h2>关于拾墨</h2><span class="en">Character</span></div>
+
+      <p class="lead">拾墨（じゅうぼく / jyuuboku）是由某陌提供采样制作的 UTAU 歌姬，目前已配布单独音声库，连续音声库正在制作，暂未配布。</p>
+
+      <div class="split" style="margin-top:30px">
+        <div>
+          <p class="cap" style="margin-bottom:6px">官方设定</p>
+          <table class="def-table">
+            <colgroup><col><col></colgroup>
+            <tbody>
+              <tr><td class="k">姓名</td><td class="v">拾墨（じゅうぼく / jyuuboku）</td></tr>
+              <tr><td class="k">中文名</td><td class="v">拾墨</td></tr>
+              <tr><td class="k">性别</td><td class="v">女</td></tr>
+              <tr><td class="k">物种</td><td class="v">白泽</td></tr>
+              <tr><td class="k">身高</td><td class="v">159 cm（人形状态下）</td></tr>
+              <tr><td class="k">生日</td><td class="v">11 月 26 日</td></tr>
+              <tr><td class="k">年龄</td><td class="v">24〇〇〇〇〇岁</td></tr>
+              <tr><td class="k">喜欢的食物</td><td class="v">巧克力，三文鱼；不过于甜腻的甜食、胡辣汤、碳水等</td></tr>
+              <tr><td class="k">讨厌的食物</td><td class="v">带骨头或白煮的肉类，闷烂的米饭或馒头等</td></tr>
+              <tr><td class="k">爱好</td><td class="v">？？？</td></tr>
+              <tr><td class="k">职业</td><td class="v">？？？、唱见、插画师</td></tr>
+              <tr><td class="k">代表色</td><td class="v"><span class="swatch" style="position:relative;top:1px;margin-right:7px"></span>#5E6F56</td></tr>
+              <tr><td class="k">象征物</td><td class="v">巧克力</td></tr>
+              <tr><td class="k">称呼</td><td class="v">小泽、拾墨、石墨等</td></tr>
+              <tr><td class="k">个人 tag</td><td class="v">#拾墨Jyuuboku&nbsp; #じゅうぼく</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <p class="cap">角色档案</p>
+          <div class="rows">
+            <div class="row"><span class="k">声源提供</span><span class="v">某陌（MmiTochOndrion）</span></div>
+            <div class="row"><span class="k">角色设计</span><span class="v">某陌（MmiTochOndrion）</span></div>
+            <div class="row"><span class="k">已配布</span><span class="v">单独音声库</span></div>
+            <div class="row"><span class="k">制作中</span><span class="v">连续音声库</span></div>
+            <div class="row"><span class="k">本体</span><span class="v">白泽 · 人形</span></div>
+          </div>
+
+          <blockquote class="def-quote">
+            <p>「旗二，赤质，绘白泽形，龙首，绿发，戴角，四足为飞走状……」</p>
+            <div class="src">— 角色设定引文</div>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- 三 · 声库下载和使用规约 -->
+    <section class="sec" id="voicebank" data-sec>
+      <div class="sec-head"><span class="sec-no">三</span><h2>声库下载和使用规约</h2><span class="en">Voicebanks</span></div>
+
+      <p class="tip"><b>Tip</b>所有声库使用规约随时更改，最新版请以本网站为准。</p>
+
+      <div class="dl">
+        <!-- 单独音 -->
+        <div>
+          <div class="dl-head">
+            <h4>UTAU 单独音音源下载</h4>
+            <span class="tag on">已配布</span>
+          </div>
+          <p>相比连续音拥有更加强而有力的声音，收录了 a R、i R、u R、e R、o R 和呼吸音 6 种特殊音素，使用它们可以让调声更加自然。</p>
+          <div class="link-row">
+            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7L11.5 7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1.5-1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            <span>https://bowlroll.net/file/365067</span>
+          </div>
+          <div class="dl-act">
+            <a class="btn btn-solid" href="https://bowlroll.net/file/365067" target="_blank" rel="noopener noreferrer">前往下载
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </a>
+            <button class="btn btn-line copy" type="button" data-copy="https://bowlroll.net/file/365067" style="border-color:var(--line-2)">复制链接</button>
+          </div>
+        </div>
+
+        <!-- 连续音 -->
+        <div>
+          <div class="dl-head">
+            <h4>UTAU 连续音音源下载</h4>
+            <span class="tag wip">监修中</span>
+          </div>
+          <p>正式版声库正在监修中。目前可先取用测试版，正式版配布后会在「网站更新和公告」一栏说明。</p>
+          <div class="link-row">
+            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7L11.5 7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1.5-1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            <span>https://bowlroll.net/file/365070（测试版）</span>
+          </div>
+          <div class="dl-act">
+            <a class="btn btn-line" href="https://bowlroll.net/file/365070" target="_blank" rel="noopener noreferrer">下载测试版
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </a>
+            <button class="btn btn-line" type="button" data-copy="https://bowlroll.net/file/365070">复制链接</button>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sub">声库使用规约</h3>
+      <p class="lead" style="margin-bottom:4px">使用规约参考了【UTAU 中华组 wiki 公共使用规约】并自行进行了修改。</p>
+
+      <!-- 著作权利 -->
+      <div class="rule rights" style="border-top:1px solid var(--line-2);padding-top:20px">
+        <div class="rule-head" style="border-bottom:1px solid var(--line)">
+          <h4>关于著作权利所属</h4>
+        </div>
+        <p style="margin-top:14px">音源、角色的权利由音源管理者、声音提供者、角色设计者等创作者本人持有。各个音源具体的权利持有人记载在各自的页面中。</p>
+        <p>当用户使用音源时，默认遵从以下两点前提：</p>
+        <ul class="premise">
+          <li><span class="pn">①</span><span>使用者承诺遵守本使用规约。</span></li>
+          <li><span class="pn">②</span><span>使用者同意，当权利持有人要求停止使用时遵从这一要求。</span></li>
+        </ul>
+      </div>
+
+      <!-- 可自由进行 -->
+      <div class="rule">
+        <div class="rule-head">
+          <h4>用户可以自由进行以下行为，无需联络音源管理者</h4>
+          <span class="cnt">9 项</span>
+        </div>
+        <ul>
+          <li><span class="mk"></span><span>在网络上发表二次创作作品，并公开配发相关资料</span></li>
+          <li><span class="mk"></span><span>在个人使用的范围内对音源文件进行加工 / 改变 / 修正</span></li>
+          <li><span class="mk"></span><span>和其他角色组成 CP / 进行恋爱题材的描写</span></li>
+          <li><span class="mk"></span><span>R-18 以下（不包含性器、性行为的直接描写）的色情表现</span></li>
+          <li><span class="mk"></span><span>轻度（战斗场面、流血表现等）的暴力 / 猎奇表现</span></li>
+          <li><span class="mk"></span><span>服装更改 / 性别转换 / 年龄改变 / 非人类角色的拟人化等，改变角色外貌的表现</span></li>
+          <li><span class="mk"></span><span>所有的线下同人活动（无偿）</span></li>
+          <li><span class="mk"></span><span>不包括服装的制作和贩卖在内的，任何形式的 Cosplay 活动</span></li>
+          <li><span class="mk"></span><span>配布自己修正的原音设定、周波数表</span></li>
+        </ul>
+      </div>
+
+      <!-- 需联络 -->
+      <div class="rule ask">
+        <div class="rule-head">
+          <h4>以下行为需要事先联络音源管理者</h4>
+          <span class="cnt">4 项</span>
+        </div>
+        <ul>
+          <li><span class="mk"></span><span>包括服装的制作和贩卖在内的，任何形式的 Cosplay 活动</span></li>
+          <li><span class="mk"></span><span>虚拟主播等直接扮演角色的活动</span></li>
+          <li><span class="mk"></span><span>死亡场面、较重度的猎奇表现、猎奇方向的人外化表现</span></li>
+          <li><span class="mk"></span><span>用于给原创角色配音等，将音源作为其他人的声音使用</span></li>
+        </ul>
+      </div>
+
+      <!-- 禁止 -->
+      <div class="rule deny">
+        <div class="rule-head">
+          <h4>严格禁止以下行为</h4>
+          <span class="cnt">2 项</span>
+        </div>
+        <ul>
+          <li><span class="mk"></span><span>擅自配布未经修改的音源文件或「换声库」</span></li>
+          <li><span class="mk"></span><span>和政治宣传、宗教布教有关的表现（艺术作品除外）</span></li>
+        </ul>
+      </div>
+
+      <!-- 补充 -->
+      <div class="rule">
+        <div class="rule-head">
+          <h4>补充</h4>
+          <span class="cnt">3 项</span>
+        </div>
+        <ul>
+          <li><span class="mk"></span><span>使用音源时请务必将音源名标注于醒目位置</span></li>
+          <li><span class="mk"></span><span>在使用他人的二次创作时请务必征求当事人同意</span></li>
+          <li><span class="mk"></span><span>身高体重、性格等公式设定仅作参考，可以根据作品需要进行改动</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 四 · 模型下载 -->
+    <section class="sec" id="model" data-sec>
+      <div class="sec-head"><span class="sec-no">四</span><h2>模型下载</h2><span class="en">Models</span></div>
+
+      <div class="block">
+        <div class="head">
+          <h4>kenna 式 VRM 模型下载</h4>
+          <span class="tag wip">检修中</span>
+        </div>
+        <p>模型正在检修中，暂时无法直接配布。可以先试试 UTAU：</p>
+        <div class="link-row" style="max-width:520px">
+          <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7L11.5 7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1.5-1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          <span>https://bowlroll.net/file/365067</span>
+        </div>
+        <div class="dl-act">
+          <a class="btn btn-solid" href="https://bowlroll.net/file/365067" target="_blank" rel="noopener noreferrer">前往 UTAU 页
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          </a>
+          <button class="btn btn-line" type="button" data-copy="https://bowlroll.net/file/365067">复制链接</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 五 · 其他资源下载 -->
+    <section class="sec" id="resources" data-sec>
+      <div class="sec-head"><span class="sec-no">五</span><h2>其他资源下载</h2><span class="en">Resources</span></div>
+      <div class="empty">
+        <span class="num">暂无</span>
+        <p>其他资源（如设定集、壁纸、素材包等）配布后会在此处补上。</p>
+      </div>
+    </section>
+
+    <!-- 六 · 官方账号 -->
+    <section class="sec" id="social" data-sec>
+      <div class="sec-head"><span class="sec-no">六</span><h2>官方账号</h2><span class="en">Official</span></div>
+
+      <div class="acct">
+        <div>
+          <p class="plat">小红书</p>
+          <p class="handle">账号名：拾墨_official</p>
+          <p class="url">https://www.xiaohongshu.com/user/profile/667421a000000000070076a1?xsec_token=ABnfuhLyIfP9cZFbmbZKrRbeJbsGbapvPRigOM8H1E9t0%3D&amp;xsec_source=pc_search</p>
+        </div>
+        <a class="btn btn-solid" href="https://www.xiaohongshu.com/user/profile/667421a000000000070076a1?xsec_token=ABnfuhLyIfP9cZFbmbZKrRbeJbsGbapvPRigOM8H1E9t0%3D&amp;xsec_source=pc_search" target="_blank" rel="noopener noreferrer">前往主页
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- 七 · 网站更新和公告 -->
+    <section class="sec" id="news" data-sec>
+      <div class="sec-head"><span class="sec-no">七</span><h2>网站更新和公告</h2><span class="en">Announcements</span></div>
+      <div class="ann">
+        <div class="ann-no">公告<b>#01</b></div>
+        <p>这是一条公告，用于庆祝网站上线~</p>
+      </div>
+    </section>
+
+    <!-- 八 · 粉丝赠图和约稿 -->
+    <section class="sec" id="gallery" data-sec>
+      <div class="sec-head"><span class="sec-no">八</span><h2>粉丝赠图和约稿</h2><span class="en">Gallery</span></div>
+      <div class="frame-note">
+        <p style="margin:0 0 8px;color:var(--ink-2)">这里会缓慢收集粉丝们的赠图和管理员约的稿件~</p>
+        <p style="margin:0">暂无收录。后续作品会在此按时间陆续补充，画作版权归原作者所有。</p>
+      </div>
+    </section>
+
+    <!-- 九 · 关于管理员 -->
+    <section class="sec" id="admin" data-sec>
+      <div class="sec-head"><span class="sec-no">九</span><h2>关于管理员</h2><span class="en">Admin</span></div>
+
+      <div class="split">
+        <div>
+          <p class="lead">网站管理员：某陌（MmiTochOndrion）</p>
+          <ul class="contact">
+            <li><span class="k">邮箱</span><span class="v">3645432096@qq.com</span>
+              <button class="copy" type="button" data-copy="3645432096@qq.com">复制</button></li>
+            <li><span class="k">QQ</span><span class="v">3645432096</span>
+              <button class="copy" type="button" data-copy="3645432096">复制</button></li>
+            <li><span class="k">WeChat（微信）</span><span class="v">moumowww</span>
+              <button class="copy" type="button" data-copy="moumowww">复制</button></li>
+            <li><span class="k">小红书</span><span class="v">sumo20131126</span>
+              <button class="copy" type="button" data-copy="sumo20131126">复制</button></li>
+          </ul>
+        </div>
+        <div class="side-note">
+          <p class="cap">联系说明</p>
+          <p>如果想要联系我的话，请尽量把时间选在节假日的 15：00～20：00。</p>
+          <p>当然只是为了交友也是可以的~测试中的声库等也可以找我获取。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 十 · 其他 -->
+    <section class="sec" id="misc" data-sec>
+      <div class="sec-head"><span class="sec-no">十</span><h2>其他</h2><span class="en">Notes</span></div>
+      <p class="muted" style="margin-bottom:4px">#01 杂谈 · 关于拾墨的三个 Q&amp;A（只是自问自答）</p>
+
+      <div class="qa">
+        <div class="qa-item">
+          <span class="qm">问</span>
+          <div>
+            <p class="qa-q">拾墨的形象是怎么设计出来的？</p>
+            <p class="qa-a">关于形象，其实我也没有找什么特别高大上的参考。看完了非人哉后觉得【白泽】这种神兽的设定特别有意思，比如说通晓万物这一点狠狠戳中我的 XP（不是），包括我皮下其实也是非人哉里的白泽厨子，所以参考了自己的形象设计了拾墨这个形象，原本是自设来着。但是后来觉得拿虚拟歌姬当皮套有点对不起粉丝（你有粉丝吗你就对不起），所以把拾墨变成了独立的一个个体。</p>
+          </div>
+        </div>
+        <div class="qa-item">
+          <span class="qm">问</span>
+          <div>
+            <p class="qa-q">拾墨的名字是怎么来的？</p>
+            <p class="qa-a">这个名字从是小学同学的笔名[石默子]中取的前两个字，已经征求过同意了哦。她也是拾墨的早期粉丝来着，感谢她见证了拾墨的诞生~</p>
+          </div>
+        </div>
+        <div class="qa-item">
+          <span class="qm">问</span>
+          <div>
+            <p class="qa-q">拾墨有旧设吗？</p>
+            <p class="qa-a">有。旧设更加像我小学时的发型，头发更加乱一点，更像那种死宅女，也有点像丧女。不过图片已经找不到了。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="l">拾墨 じゅうぼく · jyuuboku</div>
+      <div class="r">本站声库与模型均禁止二配、二转；规约以本页最新版为准。<br>网站由管理者 某陌（MmiTochOndrion）维护。</div>
+    </footer>
+
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+  var secs = Array.prototype.slice.call(document.querySelectorAll('[data-sec]'));
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function setActive(id){
+    navLinks.forEach(function(l){
+      var on = l.getAttribute('data-target') === id;
+      l.classList.toggle('is-active', on);
+      if(on){ l.setAttribute('aria-current','true'); } else { l.removeAttribute('aria-current'); }
+    });
+  }
+
+  var lockUntil = 0;
+
+  /* 侧边栏点击跳转 */
+  navLinks.forEach(function(link){
+    link.addEventListener('click', function(e){
+      var id = link.getAttribute('href').slice(1);
+      var target = document.getElementById(id);
+      if(!target) return;
+      e.preventDefault();
+      lockUntil = Date.now() + (reduce ? 0 : 620);
+      target.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+      if(history.replaceState){ history.replaceState(null, '', '#' + id); }
+      setActive(id);
+    });
+  });
+
+  /* 滚动跟随高亮 */
+  function headOffset(){
+    var sb = document.getElementById('sidebar');
+    if(window.innerWidth <= 1080 && sb){ return sb.offsetHeight + 14; }
+    return 30;
+  }
+  var ticking = false;
+  function spy(){
+    ticking = false;
+    if(Date.now() < lockUntil) return;
+    var y = window.scrollY + headOffset();
+    var cur = secs[0], i;
+    for(i = 0; i < secs.length; i++){
+      var top = secs[i].getBoundingClientRect().top + window.scrollY;
+      if(top <= y){ cur = secs[i]; }
+    }
+    if(window.scrollY + window.innerHeight >= document.body.scrollHeight - 2){
+      cur = secs[secs.length - 1];
+    }
+    if(cur) setActive(cur.id);
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ ticking = true; window.requestAnimationFrame(spy); }
+  }, {passive:true});
+  window.addEventListener('resize', spy);
+
+  /* 回顶部 */
+  var toTop = document.getElementById('toTop');
+  if(toTop){
+    toTop.addEventListener('click', function(){
+      window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+      if(history.replaceState){ history.replaceState(null, '', location.pathname + location.search); }
+      setActive(secs[0].id);
+    });
+  }
+
+  /* 复制 */
+  var toast = document.getElementById('toast'), timer = null;
+  function showToast(msg){
+    if(!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('on');
+    clearTimeout(timer);
+    timer = setTimeout(function(){ toast.classList.remove('on'); }, 1600);
+  }
+  function fallbackCopy(text){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly','');
+    ta.style.position = 'fixed'; ta.style.left = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch(err){ ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var text = btn.getAttribute('data-copy');
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){
+          showToast('已复制：' + text);
+        }, function(){
+          showToast(fallbackCopy(text) ? '已复制：' + text : '复制失败，请手动选取');
+        });
+      } else {
+        showToast(fallbackCopy(text) ? '已复制：' + text : '复制失败，请手动选取');
+      }
+    });
+  });
+
+  /* 初始定位 */
+  var id = (location.hash || '').slice(1);
+  var target = id ? document.getElementById(id) : null;
+  if(target){
+    target.scrollIntoView({behavior:'auto', block:'start'});
+    setActive(id);
+  } else {
+    spy();
+  }
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(spy); }
+  window.addEventListener('load', spy);
+})();
+</script>
+</body>
+</html>
